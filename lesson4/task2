@@ -1,1 +1,14 @@
+module task2 (input logic a,
+              input logic b,
+              input logic sel,
+              output logic y);
 
+ always_comb begin
+   case(sel)
+     1'b1: 	  y = a;
+     default: y = b; 
+   
+   endcase
+ end
+    
+endmodule
