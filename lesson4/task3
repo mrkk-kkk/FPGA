@@ -1,1 +1,18 @@
-
+module led_counter4bit (input  logic clk,
+                    input  logic reset,
+                    input  logic enable,
+                    output logic [3:0] count,
+                    output logic [3:0] led);
+   
+  always_ff @(posedge clk) 
+  begin: counter  
+   if (reset)
+      count <= 4'b0000;
+   else
+   if (enable)
+      count <= count + 4'b0001;
+  end
+  
+  assign led = count;
+  
+endmodule
