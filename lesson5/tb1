@@ -1,0 +1,22 @@
+`timescale 1ns/1ps
+
+module tb_counter();
+  
+  reg clk, rst, load, en, up_down;
+  reg  [3:0] data_in;
+  wire [3:0] count;
+  
+  counter DUT   (.clk(clk), 
+                 .rst(rst), 
+                 .load(load), 
+                 .data_in(data_in), 
+                 .en(en), 					
+                 .up_down(up_down), 
+                 .count(count));
+ 
+
+ initial clk = 0; 
+ always #5 clk = ~clk;
+  
+endmodule
+
