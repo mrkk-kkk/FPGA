@@ -1,0 +1,47 @@
+`timescale 1ns/1ps
+
+module tb_counter();
+  
+  reg clk, rst, load, en, up_down;
+  reg  [3:0] data_in;
+  wire [3:0] count;
+  
+  counter DUT   (.clk(clk), 
+                 .rst(rst), 
+                 .load(load), 
+                 .data_in(data_in), 
+                 .en(en), 					
+                 .up_down(up_down), 
+                 .count(count));
+ 
+
+ initial clk = 0; 
+ always #5 clk = ~clk;
+   
+ initial begin
+   
+   rst     = 1;
+   load    = 0;
+   en      = 0;
+   up_down = 0;
+   data_in = 4'd0;
+   
+   @(posedge clk); #1;
+   rst= 0;
+   
+   load = 1;
+   data_in = 4'd5;
+   @(posedge clk); #1;
+   load = 0;
+   
+   if(count === 4'd10)
+     $display("PASS: load, count = %0d", count);
+   else
+     $display("FAIL: load, expected 10, got %0d", count);
+   
+   $finish;
+   
+ end
+   
+endmodule
+
